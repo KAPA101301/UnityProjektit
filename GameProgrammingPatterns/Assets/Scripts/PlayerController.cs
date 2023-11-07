@@ -16,16 +16,15 @@ public class PlayerController : MonoBehaviour
     Command _last_cmd = null;
 
     Stack<Command> _undo_commands = new Stack<Command>();
+    Stack<Command> _redo_commands = new Stack<Command>();
 
-    
     void SwapCommands(ref Command A, ref Command B)
     {
         Command tmp = A;
         A = B;
         B = tmp;
 
-        _undo_commands.Push(cmd_W);
-        _undo_commands.Pop();
+        
     }
 
     // Start is called before the first frame update
@@ -41,24 +40,28 @@ public class PlayerController : MonoBehaviour
         {
             cmd_W.Execute(_rigidbody);
             _last_cmd = cmd_W;
+            _undo_commands.Push(cmd_W);
             //transform.position += Vector3.forward;
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
             cmd_A.Execute(_rigidbody);
             _last_cmd = cmd_A;
+            _undo_commands.Push(cmd_A);
             //transform.position += Vector3.left;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             cmd_S.Execute(_rigidbody);
             _last_cmd = cmd_S;
+            _undo_commands.Push(cmd_S);
             //transform.position += Vector3.back;
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
             cmd_D.Execute(_rigidbody);
-
+            _last_cmd = cmd_D;
+            _undo_commands.Push(cmd_D);
             //transform.position += Vector3.right;
         }
         if (Input.GetKeyDown(KeyCode.Space))
@@ -72,6 +75,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             _last_cmd.Undo(_rigidbody);
+            _last_cmd = new DoNothingCommand();
+            _undo_commands.Pop();
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            _last_cmd.Redo(_rigidbody);
             _last_cmd = new DoNothingCommand();
         }
     }

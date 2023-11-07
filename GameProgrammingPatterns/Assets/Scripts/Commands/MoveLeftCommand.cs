@@ -15,4 +15,8 @@ public class MoveLeftCommand : Command
     {
         rb.transform.position += rb.transform.right;
     }
+    public override void Redo(Rigidbody rb)
+    {
+        rb.transform.position -= rb.transform.right;
+    }
 }

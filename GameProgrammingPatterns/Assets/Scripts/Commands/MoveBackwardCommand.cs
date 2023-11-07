@@ -15,4 +15,8 @@ public class MoveBackwardCommand : Command
     {
         rb.transform.position += rb.transform.forward;
     }
+    public override void Redo(Rigidbody rb)
+    {
+        rb.transform.position -= rb.transform.forward;
+    }
 }

@@ -13,4 +13,9 @@ public class DoNothingCommand : Command
     {
         throw new System.NotImplementedException();
     }
+
+    public override void Redo(Rigidbody rb)
+    {
+        throw new System.NotImplementedException();
+    }
 }

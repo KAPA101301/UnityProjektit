@@ -11,5 +11,7 @@ public abstract class Command
 
     public abstract void Undo(Rigidbody rb);
 
+    public abstract void Redo(Rigidbody rb);
+
 
 }
