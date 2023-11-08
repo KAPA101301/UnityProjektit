@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4474947, g: 0.49744976, b: 0.5753037, a: 1}
+  m_IndirectSpecularColor: {r: 0.4474942, g: 0.4974488, b: 0.57530266, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 620909215}
   - component: {fileID: 620909220}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,8 +450,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.39842904, y: -0.004956454, z: 0.002152265, w: -0.9171833}
-  m_LocalPosition: {x: 0.13873938, y: 21.324966, z: -30.659557}
+  m_LocalRotation: {x: -0.26659086, y: 0.7004647, z: -0.32320914, w: -0.5777668}
+  m_LocalPosition: {x: 25.684069, y: 20.334618, z: 8.362049}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -563,6 +563,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2124797651763391532
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4385302479297426277, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385302479297426277, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385302479297426277, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385302479297426277, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385302479297426277, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385302479297426277, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385302479297426277, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385302479297426277, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385302479297426277, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385302479297426277, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655154835535966589, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: goldCoinPrefab
+      value: 
+      objectReference: {fileID: 8052283161371913394, guid: fdcb75c3dca0dfa48bb72543ccba05db, type: 3}
+    - target: {fileID: 6151207924363280609, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
+      propertyPath: m_Name
+      value: CoinSpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cdda00414a36f3a43a024c01da175c78, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -571,3 +632,4 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1728626596}
   - {fileID: 620909219}
+  - {fileID: 2124797651763391532}
