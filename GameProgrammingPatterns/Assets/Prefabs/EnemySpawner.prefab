@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6151207924363280609
+--- !u!1 &4521071845637990756
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4385302479297426277}
-  - component: {fileID: 5655154835535966589}
+  - component: {fileID: 6210104797409158384}
+  - component: {fileID: 7918035584332990776}
   m_Layer: 0
-  m_Name: CoinSpawner
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4385302479297426277
+--- !u!4 &6210104797409158384
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6151207924363280609}
+  m_GameObject: {fileID: 4521071845637990756}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.1126175, y: 1.3397602, z: 4.995593}
+  m_LocalPosition: {x: -0.18392968, y: -1.8547574, z: -0.13020718}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5655154835535966589
+--- !u!114 &7918035584332990776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6151207924363280609}
+  m_GameObject: {fileID: 4521071845637990756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cef38f0d7d5d4441be6e55d91935a5f, type: 3}
+  m_Script: {fileID: 11500000, guid: f5815b46797f81b499dd23bd85e36647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldCoinPrefab: {fileID: 8052283161371913394, guid: fdcb75c3dca0dfa48bb72543ccba05db, type: 3}
-  numberOfCoinsToSpawn: 10
+  enemyPrefab: {fileID: 5961098824871459893, guid: 31242a4af7e1a2b418910d8622d2062a, type: 3}
+  numberOfEnemiesToSpawn: 10
   spawnAreaSize: 50
-  coinLifetime: 10
