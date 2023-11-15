@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum PlayerState
+    {
+        JUMPING,
+        STANDING,
+        CROUCHING,
+        REPLAYING
+    }
+    //Keeps track of the player state
+    public PlayerState my_state = PlayerState.STANDING;
 
     Rigidbody _rigidbody;
     Vector3 _start_pos;
@@ -50,6 +59,11 @@ public class PlayerController : MonoBehaviour
 
         bReplaying = false;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+    }
     // Update is called once per frame
     void Update()
     {
@@ -59,6 +73,20 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            switch (my_state)
+            {
+                case PlayerState.JUMPING:
+
+                    break;
+
+                case PlayerState.STANDING:
+
+                    break;
+
+                case PlayerState.CROUCHING:
+
+                    break;
+            }
         if (Input.GetKeyUp(KeyCode.F))
         {
             bReplaying = true;
@@ -107,8 +135,16 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            //State?
+            //No double jump!
+            
+            
             _rigidbody.AddForce(10.0f*transform.up , ForceMode.Impulse);
+
+            
         }
+
+        //Crouch! no jumping from crouched position!
         if (Input.GetKeyDown(KeyCode.R))
         {
             SwapCommands(ref cmd_A, ref cmd_D, ref cmd_W, ref cmd_S);
