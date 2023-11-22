@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
         JUMPING,
         STANDING,
         CROUCHING,
-        REPLAYING
+        REPLAYING,
+        EMPOWERED
     }
     //Keeps track of the player state
     public PlayerState my_state = PlayerState.STANDING;
@@ -47,6 +48,11 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _start_pos = transform.position;
+        PowerUp.OnPowerUpCollected += PowerUpWasCollected;
+    }
+    void PowerUpWasCollected()
+    {
+        my_state = PlayerState.EMPOWERED;
     }
     IEnumerator Replay()
     {
@@ -62,113 +68,125 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        my_state = PlayerState.STANDING;
     }
     // Update is called once per frame
     void Update()
     {
         if (bReplaying)
         {
-            
+            Debug.Log("State: Replaying");
         }
         else
         {
             switch (my_state)
             {
                 case PlayerState.JUMPING:
-
+                    Debug.Log("State: Jumping");
                     break;
 
                 case PlayerState.STANDING:
-
+                    Debug.Log("State: Standing");
                     break;
 
                 case PlayerState.CROUCHING:
-
+                    Debug.Log("State: Crouching");
+                    break;
+                case PlayerState.EMPOWERED:
+                    Debug.Log("State: Empowered");
                     break;
             }
-        if (Input.GetKeyUp(KeyCode.F))
-        {
-            bReplaying = true;
-            //Get the Undo-stack and "reverse" it
-            while(_undo_commands.Count > 0)
+            if (Input.GetKeyUp(KeyCode.F))
             {
-                _replay_commands.Push(_undo_commands.Pop());    
+                bReplaying = true;
+                //Get the Undo-stack and "reverse" it
+                while(_undo_commands.Count > 0)
+                {
+                    _replay_commands.Push(_undo_commands.Pop());    
+                }
+                //Move the player to the start position
+                transform.position = _start_pos;
+
+                //Start coroutine
+                StartCoroutine(Replay());
             }
-            //Move the player to the start position
-            transform.position = _start_pos;
-
-            //Start coroutine
-            StartCoroutine(Replay());
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            cmd_W.Execute(_rigidbody);
-           // _last_cmd = cmd_W;
-            _undo_commands.Push(cmd_W);
-            _redo_commands.Clear();
-            //transform.position += Vector3.forward;
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            cmd_A.Execute(_rigidbody);
-            //_last_cmd = cmd_A;
-            _undo_commands.Push(cmd_A);
-            _redo_commands.Clear();
-            //transform.position += Vector3.left;
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            cmd_S.Execute(_rigidbody);
-            //_last_cmd = cmd_S;
-            _undo_commands.Push(cmd_S);
-            _redo_commands.Clear();
-            //transform.position += Vector3.back;
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            cmd_D.Execute(_rigidbody);
-            //_last_cmd = cmd_D;
-            _undo_commands.Push(cmd_D);
-            _redo_commands.Clear();
-            //transform.position += Vector3.right;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //State?
-            //No double jump!
-            
-            
-            _rigidbody.AddForce(10.0f*transform.up , ForceMode.Impulse);
-
-            
-        }
-
-        //Crouch! no jumping from crouched position!
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SwapCommands(ref cmd_A, ref cmd_D, ref cmd_W, ref cmd_S);
-        }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            //if there are commands in the stack...
-            if(_undo_commands.Count > 0)
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                //...pop one command out and execute it.
-                Command cmd = _undo_commands.Pop();
-                _redo_commands.Push(cmd);
-                cmd.Undo(_rigidbody);   
+                cmd_W.Execute(_rigidbody);
+                // _last_cmd = cmd_W;
+                _undo_commands.Push(cmd_W);
+                _redo_commands.Clear();
+                //transform.position += Vector3.forward;
             }
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            if(_redo_commands.Count > 0)
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                Command cmd = _redo_commands.Pop();
-                _undo_commands.Push(cmd);
-                cmd.Execute(_rigidbody);
-            }    
-        }
+                cmd_A.Execute(_rigidbody);
+                //_last_cmd = cmd_A;
+                _undo_commands.Push(cmd_A);
+                _redo_commands.Clear();
+                //transform.position += Vector3.left;
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                cmd_S.Execute(_rigidbody);
+                //_last_cmd = cmd_S;
+                _undo_commands.Push(cmd_S);
+                _redo_commands.Clear();
+                //transform.position += Vector3.back;
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                cmd_D.Execute(_rigidbody);
+                //_last_cmd = cmd_D;
+                _undo_commands.Push(cmd_D);
+                _redo_commands.Clear();
+                //transform.position += Vector3.right;
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (my_state == PlayerState.STANDING)
+                {
+                    _rigidbody.AddForce(10.0f*transform.up , ForceMode.Impulse);
+                    my_state = PlayerState.JUMPING;
+                }
+            }
+
+            //Crouch! no jumping from crouched position!
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                if(my_state == PlayerState.STANDING)
+                {
+                    my_state = PlayerState.CROUCHING;
+                }
+                else if(my_state == PlayerState.CROUCHING)
+                {
+                    my_state = PlayerState.STANDING;
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SwapCommands(ref cmd_A, ref cmd_D, ref cmd_W, ref cmd_S);
+            }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                //if there are commands in the stack...
+                if(_undo_commands.Count > 0)
+                {
+                    //...pop one command out and execute it.
+                    Command cmd = _undo_commands.Pop();
+                    _redo_commands.Push(cmd);
+                    cmd.Undo(_rigidbody);   
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                if(_redo_commands.Count > 0)
+                {
+                    Command cmd = _redo_commands.Pop();
+                    _undo_commands.Push(cmd);
+                    cmd.Execute(_rigidbody);
+                }    
+            }
 
         }
     }

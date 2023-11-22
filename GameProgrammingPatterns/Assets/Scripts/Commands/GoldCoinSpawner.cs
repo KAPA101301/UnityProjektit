@@ -27,7 +27,7 @@ public class GoldCoinSpawner : MonoBehaviour
             GameObject newCoin = Instantiate(goldCoinPrefab, spawnPosition, Quaternion.Euler(90f,0f,0f));
 
             // Destroy the coin after a specified time (coinLifetime).
-            Destroy(newCoin, coinLifetime);
+            // Destroy(newCoin, coinLifetime);
         }
     }
 }
