@@ -11,7 +11,7 @@ public class GameOfLife : MonoBehaviour
     GameObject[,] tiles = new GameObject[Width, Height];
 
     private float TimeAccu = 0.0f;
-
+    private float TimeDelay = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -128,7 +128,7 @@ public class GameOfLife : MonoBehaviour
     {
         TimeAccu += Time.deltaTime;
 
-        if (TimeAccu > 1.0f)
+        if (TimeAccu > TimeDelay)
         {
             UpdateGrid();
 
